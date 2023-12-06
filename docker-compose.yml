@@ -7,7 +7,6 @@ services:
     command: [ "python"  , "-m", "app" ]
     environment:
       DEBUG: 'True'
-      POSTGRES_HOST: postgres
       SETTINGS_LOG_FILE: 'True'
       SETTINGS_LOCAL_MODELS_PATH: models
     volumes:
@@ -60,7 +59,6 @@ services:
     restart: on-failure
 
   rabbitmq:
-    container_name: "rabbitmq"
     image: rabbitmq:3.12-management-alpine
     volumes:
       - "rabbitmq_data:/bitnami"

@@ -2,12 +2,13 @@ from app.settings.settings import settings
 
 BROKER_URL = (
     f"amqp://{settings.rabbit.username}"
-    f":{settings.rabbit.password}@{settings.rabbit.host}:{settings.rabbit.port}/"
+    f":{settings.rabbit.password}@{settings.rabbit.host}:"
+    f"{settings.rabbit.port}/"
 )
 
 CELERY_RESULT_BACKEND = (
-    f"redis://{settings.redis.host}:{settings.redis.port}" f"/{settings.redis.db}"
-
+    f"redis://{settings.redis.host}:{settings.redis.port}"
+    f"/{settings.redis.db}"
 )
 
 CELERY_TASK_SERIALIZER = "json"

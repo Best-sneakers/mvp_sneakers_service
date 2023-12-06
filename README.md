@@ -21,7 +21,7 @@ python -m app
 #### Docker runner
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 ```bash

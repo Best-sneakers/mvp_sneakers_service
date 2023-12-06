@@ -23,5 +23,3 @@ async def root():
 async def startup():
     if settings.project.log_file:
         logging_config.dictConfig(LOGGING)
-
-

@@ -13,6 +13,16 @@ class Celery(BaseSettings):
     max_loop_interval: str = "60"
 
 
+class RabbitMQ(BaseSettings):
+    class Config:
+        env_prefix = "RABBITMQ_"
+
+    host: str = "localhost"
+    port: int = 5672
+    username: str = "parser"
+    password: str = "parser"
+
+
 class Redis(BaseSettings):
     class Config:
         env_prefix = "REDIS_"
@@ -49,6 +59,7 @@ class Settings(BaseSettings):
     project: ProjectSettings = ProjectSettings()
     redis: Redis = Redis()
     celery: Celery = Celery()
+    rabbit: RabbitMQ = RabbitMQ()
 
 
 @lru_cache

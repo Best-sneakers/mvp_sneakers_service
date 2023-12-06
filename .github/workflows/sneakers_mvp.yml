@@ -33,25 +33,21 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install pylint mypy lxml pylint-report
-          poetry install
+          poetry install --no-root
 
       - name: Create directories
         run: |
-          mkdir -p reports/src/pylint/
-          mkdir -p reports/src/mypy/
+          mkdir -p reports/app/pylint/
+          mkdir -p reports/app/mypy/
 
       - name: Check typing with mypy
         run: |
-          mypy --html-report reports/src/mypy/ ./src || true
+          mypy --html-report reports/app/mypy/ ./app || true
 
       - name: Lint with pylint
         run: |
-          pylint app || pylint app --output-format=pylint_report.CustomJsonReporter --load-plugins = "pylint_report"  | pylint_report > reports/src/pylint/report.html | false
+          pylint app || pylint app --output-format=pylint_report.CustomJsonReporter --load-plugins = "pylint_report"  | pylint_report > reports/app/pylint/report.html | false
 
-
-      - name: Check typing with mypy
-        run: |
-          mypy --html-report reports/src/mypy/ ./src || true
 
       - name: Upload reports
         if: ${{ failure() }}

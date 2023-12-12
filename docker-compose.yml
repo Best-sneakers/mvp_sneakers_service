@@ -1,0 +1,82 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: ./Dockerfiles/app/Dockerfile
+      target: development
+    command: [ "python"  , "-m", "app" ]
+    environment:
+      DEBUG: 'True'
+      SETTINGS_LOG_FILE: 'True'
+      SETTINGS_LOCAL_MODELS_PATH: models
+    volumes:
+      - "./app:/src/app"
+      - "./research/models:/src/models"
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./.env
+    depends_on:
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD" ,"nc", "-vz", "-w1", "localhost", "8000" ]
+      interval: 5s
+      timeout: 20s
+      retries: 100
+    restart: on-failure
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfiles/app/Dockerfile
+      target: development
+    command: celery -A app.services.celery worker --uid=nobody --gid=nogroup --loglevel=info
+    volumes:
+      - ./app:/src/app
+    environment:
+      REDIS_HOST: redis
+      RABBITMQ_HOST: rabbitmq
+    depends_on:
+      web:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+
+
+  redis:
+    image: redis:latest
+    expose:
+      - 6379
+    volumes:
+      - "redis_data:/bitnami/redis/data"
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 5s
+      timeout: 30s
+      retries: 50
+    restart: on-failure
+
+  rabbitmq:
+    image: rabbitmq:3.12-management-alpine
+    volumes:
+      - "rabbitmq_data:/bitnami"
+    environment:
+      RABBITMQ_DEFAULT_USER: parser
+      RABBITMQ_DEFAULT_PASS: parser
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    restart: on-failure
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+
+volumes:
+  redis_data:
+    driver: local
+  rabbitmq_data:
+    driver: local

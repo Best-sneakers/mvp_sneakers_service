@@ -14,6 +14,7 @@ fastapi = "^0.104.1"
 celery = "^5.3.6"
 redis = "^5.0.1"
 ecs-logging = "^2.1.0"
+flake8 = "^6.1.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.11.0"
@@ -95,7 +96,8 @@ disable = [
     "missing-docstring",
     "too-few-public-methods",
     "too-many-arguments",
-    "invalid-all-format"
+    "invalid-all-format",
+    "import-error"
 ]
 
 

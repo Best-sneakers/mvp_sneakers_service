@@ -1,4 +1,4 @@
-.PHONY: dev pre-commit isort black mypy  pylint lint
+.PHONY: dev pre-commit isort black mypy flake8 pylint lint
 
 dev: pre-commit
 
@@ -8,6 +8,9 @@ pre-commit:
 
 isort:
 	isort . --profile black
+
+flake8:
+	flake8 .
 
 black:
 	black .
@@ -32,5 +35,5 @@ build: check_and_rename_env
 	@echo "Waiting for 15 seconds..."
 	@sleep 15
 
-lint: isort black mypy  pylint
+lint: isort black mypy  pylint flake8
 

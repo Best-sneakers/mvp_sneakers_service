@@ -76,8 +76,6 @@ services:
       - '15672:15672'
 
 volumes:
-  postgres:
-    driver: local
   redis_data:
     driver: local
   rabbitmq_data:

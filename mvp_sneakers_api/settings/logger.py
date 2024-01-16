@@ -24,7 +24,7 @@ LOGGING = {
             "level": "INFO",
             "formatter": "json",
             "class": "logging.FileHandler",
-            "filename": log_dir / "app.json",
+            "filename": log_dir / "mvp_sneakers_api.json",
         },
         "console": {
             "level": "DEBUG",

@@ -15,7 +15,7 @@ In these run modes, it's possible to update the application code on the fly with
 #### Python Runner
 
 ```bash
-python -m app
+python -m mvp_sneakers_api
 ```
 
 #### Docker runner

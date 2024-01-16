@@ -2,6 +2,7 @@ __all__ = "settings"
 
 import os
 from functools import lru_cache
+from pathlib import Path
 
 from pydantic_settings import BaseSettings
 
@@ -48,7 +49,7 @@ class ProjectSettings(BaseSettings):
     class Config:
         env_prefix = "SETTINGS_"
 
-    base_dir: str = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    base_dir: Path = Path(__file__).resolve().parent.parent.parent
     project_name: str = "mvp_sneakers"
     log_file: bool = False
     models_path: str = "/data/models"

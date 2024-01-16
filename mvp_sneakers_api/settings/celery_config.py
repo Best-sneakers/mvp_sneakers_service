@@ -1,4 +1,4 @@
-from app.settings.settings import settings
+from mvp_sneakers_api.settings.settings import settings
 
 BROKER_URL = (
     f"amqp://{settings.rabbit.username}"

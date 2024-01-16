@@ -44,7 +44,7 @@ WORKDIR $PYSETUP_PATH
 COPY poetry.lock pyproject.toml ./
 
 # install runtime deps - uses $POETRY_VIRTUALENVS_IN_PROJECT internally
-RUN poetry install --no-dev
+RUN poetry install --no-dev --no-root
 
 
 # `development` image is used during development / testing
@@ -58,13 +58,13 @@ COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
 
 
 # quicker install as runtime deps are already installed
-RUN poetry install
+RUN poetry install --no-root
 # netcat for testing
 RUN apt-get update && \
     apt-get install netcat-traditional
 
 
-# WARNING! Don't forget to mount "./app:/app/app"
+# WARNING! Don't forget to mount "./mvp_sneakers_api:/mvp_sneakers_api/mvp_sneakers_api"
 WORKDIR /src
 RUN mkdir /src/logs
 

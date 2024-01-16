@@ -10,16 +10,16 @@ isort:
 	isort . --profile black
 
 flake8:
-	flake8 .
+	flake8  mvp_sneakers_api
 
 black:
 	black .
 
 mypy:
-	mypy -p app
+	mypy -p mvp_sneakers_api
 
 pylint:
-	pylint app
+	pylint mvp_sneakers_api
 
 
 lint: isort black mypy  pylint flake8

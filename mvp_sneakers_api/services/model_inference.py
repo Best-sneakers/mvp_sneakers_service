@@ -1,5 +1,4 @@
 import logging
-import pickle
 
 import cv2
 import numpy as np
@@ -9,12 +8,14 @@ from mvp_sneakers_api.settings.settings import settings
 logger = logging.getLogger()
 
 
-def infer_model(model: pickle, image: bytes):
+# pylint: disable=no-member
+def infer_model(model, image: bytes):
     """
     Perform inference using a pre-trained model on an input image.
 
     Parameters:
-    - model: The pre-trained machine learning model (e.g., scikit-learn model) loaded using pickle.
+    - model: The pre-trained machine learning model
+    (e.g., scikit-learn model) loaded using pickle.
     - image: Bytes representation of the input image.
 
     Returns:

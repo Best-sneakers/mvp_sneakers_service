@@ -15,7 +15,7 @@ class BestPickleGetter:
         self.experiment_path = Path(experiment_path)
         self.loss = loss
 
-    def get_best_model(self) -> pickle:
+    def get_best_model(self):
         """Get the best model checkpoint for inference"""
         best_checkpoint = self.get_best_checkpoint_on_l_loss()
 

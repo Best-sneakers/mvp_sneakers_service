@@ -108,7 +108,8 @@ disable = [
     "too-few-public-methods",
     "too-many-arguments",
     "invalid-all-format",
-    "import-error"
+    "import-error",
+    "logging-fstring-interpolation"
 ]
 
 

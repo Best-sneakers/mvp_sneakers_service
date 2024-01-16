@@ -47,11 +47,11 @@ jobs:
 
       - name: Lint with flake8
         run: |
-          flake8 app || flake8 mvp_sneakers_api  --format=html --htmldir=reports/app/flake8/
+          flake8 mvp_sneakers_api || flake8 mvp_sneakers_api  --format=html --htmldir=reports/app/flake8/
 
       - name: Lint with pylint
         run: |
-          pylint app || pylint mvp_sneakers_api --output-format=pylint_report.CustomJsonReporter --load-plugins = "pylint_report"  | pylint_report > reports/app/pylint/report.html | false
+          pylint mvp_sneakers_api || pylint mvp_sneakers_api --output-format=pylint_report.CustomJsonReporter --load-plugins = "pylint_report"  | pylint_report > reports/app/pylint/report.html | false
 
 
       - name: Upload reports

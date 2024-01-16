@@ -11,8 +11,7 @@ logger = logging.getLogger(__name__)
 class BestPickleGetter:
     """Get best checkpoint by loss for inference"""
 
-    def __init__(self, experiment_path: str | Path,
-                 loss: str = "val_loss"):
+    def __init__(self, experiment_path: str | Path, loss: str = "val_loss"):
         self.experiment_path = Path(experiment_path)
         self.loss = loss
 
@@ -23,7 +22,7 @@ class BestPickleGetter:
         checkpoint_path = self.experiment_path / best_checkpoint
         logger.info(checkpoint_path)
 
-        with open(checkpoint_path, 'rb') as file:
+        with open(checkpoint_path, "rb") as file:
             model = pickle.load(file)
 
         return model
@@ -34,9 +33,11 @@ class BestPickleGetter:
          from a list of file names.
         """
         saved_checkpoints = self._list_files_in_experiment(
-            self.experiment_path)
-        val_loss_values = self._get_loss_values(saved_checkpoints,
-                                                loss=self.loss)
+            self.experiment_path
+        )
+        val_loss_values = self._get_loss_values(
+            saved_checkpoints, loss=self.loss
+        )
 
         min_val_loss_index = val_loss_values.index(min(val_loss_values))
         best_file_name = saved_checkpoints[min_val_loss_index]

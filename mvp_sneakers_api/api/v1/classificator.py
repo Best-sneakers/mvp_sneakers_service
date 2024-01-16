@@ -13,8 +13,9 @@ router = APIRouter()
 
 @router.post("/classificate")
 async def predict_item(file: UploadFile = File(...)) -> Dict:
-    model = BestPickleGetter(settings.project.base_dir / 'models',
-                             loss='accuracy_score').get_best_model()
+    model = BestPickleGetter(
+        settings.project.base_dir / "models", loss="accuracy_score"
+    ).get_best_model()
     image = await file.read()
 
     prediction_result = infer_model(model, image)

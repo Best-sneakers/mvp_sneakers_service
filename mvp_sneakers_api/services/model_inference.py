@@ -23,8 +23,9 @@ def infer_model(model: pickle, image: bytes):
     np_array = np.frombuffer(image, np.uint8)
 
     decoded_img = cv2.imdecode(np_array, cv2.IMREAD_GRAYSCALE)
-    decoded_img = cv2.resize(decoded_img, (settings.model.image_size,
-                                           settings.model.image_size))
+    decoded_img = cv2.resize(
+        decoded_img, (settings.model.image_size, settings.model.image_size)
+    )
 
     img_flat = np.asarray(decoded_img).flatten()
     prediction = model.predict(np.expand_dims(img_flat, axis=0))[0]

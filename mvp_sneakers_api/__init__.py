@@ -26,5 +26,6 @@ async def startup():
         logging_config.dictConfig(LOGGING)
 
 
-app.include_router(classificator.router, prefix="/api/v1/classificator",
-                   tags=["cat&dog"])
+app.include_router(
+    classificator.router, prefix="/api/v1/classificator", tags=["cat&dog"]
+)

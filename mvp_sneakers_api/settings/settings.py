@@ -17,8 +17,13 @@ class Celery(BaseSettings):
 
 class Model(BaseSettings):
     image_size: int = 128
-    label: Dict = {0: 'adidas', 1: 'Nike', 2: 'Vans', 3: 'Jordan',
-                   4: 'New Balance'}
+    label: Dict = {
+        0: "adidas",
+        1: "Nike",
+        2: "Vans",
+        3: "Jordan",
+        4: "New Balance",
+    }
 
 
 class RabbitMQ(BaseSettings):

@@ -22,7 +22,6 @@ pylint:
 	pylint app
 
 
-
 lint: isort black mypy  pylint flake8
 
 check_and_rename_env:

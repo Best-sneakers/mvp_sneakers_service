@@ -65,6 +65,7 @@ class BestPickleGetter:
         """
         Get a list of val_loss values from a list of file names.
         """
+        logger.info(loss)
         val_loss_values = []
 
         for file_name in file_names:

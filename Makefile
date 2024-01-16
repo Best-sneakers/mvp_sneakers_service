@@ -10,17 +10,19 @@ isort:
 	isort . --profile black
 
 flake8:
-	flake8 .
+	flake8  mvp_sneakers_api
 
 black:
 	black .
 
 mypy:
-	mypy -p app
+	mypy -p mvp_sneakers_api
 
 pylint:
-	pylint app
+	pylint mvp_sneakers_api
 
+
+lint: isort black mypy  pylint flake8
 
 check_and_rename_env:
 	  @if [ -e ".env" ]; then \
@@ -30,10 +32,27 @@ check_and_rename_env:
         echo "File does not exist."; \
       fi
 
-build: check_and_rename_env
-	docker compose build
-	@echo "Waiting for 15 seconds..."
-	@sleep 15
+build_front:
+	docker-compose -f frontend/docker-compose.yml build
 
-lint: isort black mypy  pylint flake8
+run_front:
+	docker-compose -f frontend/docker-compose.yml up
 
+
+build_docker_metrics: check_and_rename_env
+	docker-compose -f docker-compose.metrics.yml build
+
+build_docker_dev:check_and_rename_env
+	docker compose -f docker-compose.dev.yml build
+
+run_metrics:
+	docker compose -f docker-compose.metrics.yml up
+
+metrics_stop:
+	docker compose -f docker-compose.metrics.yml down
+
+run_dev:
+	docker compose -f docker-compose.dev.yml up
+
+dev_stop:
+	docker compose -f docker-compose.dev.yml down

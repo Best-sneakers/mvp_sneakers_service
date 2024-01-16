@@ -1,7 +1,8 @@
 __all__ = "settings"
 
-import os
 from functools import lru_cache
+from pathlib import Path
+from typing import Dict
 
 from pydantic_settings import BaseSettings
 
@@ -11,6 +12,17 @@ class Celery(BaseSettings):
         env_prefix = "CELERY_"
 
     max_loop_interval: str = "60"
+
+
+class Model(BaseSettings):
+    image_size: int = 128
+    label: Dict = {
+        0: "adidas",
+        1: "Nike",
+        2: "Vans",
+        3: "Jordan",
+        4: "New Balance",
+    }
 
 
 class RabbitMQ(BaseSettings):
@@ -48,7 +60,7 @@ class ProjectSettings(BaseSettings):
     class Config:
         env_prefix = "SETTINGS_"
 
-    base_dir: str = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    base_dir: Path = Path(__file__).resolve().parent.parent.parent
     project_name: str = "mvp_sneakers"
     log_file: bool = False
     models_path: str = "/data/models"
@@ -60,6 +72,7 @@ class Settings(BaseSettings):
     redis: Redis = Redis()
     celery: Celery = Celery()
     rabbit: RabbitMQ = RabbitMQ()
+    model: Model = Model()
 
 
 @lru_cache

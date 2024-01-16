@@ -1,4 +1,4 @@
-FROM python:3.10-slim as python-base
+FROM python:3.10-slim-buster as python-base
 ENV PYTHONUNBUFFERED=1 \
     # prevents python creating .pyc as files
     PYTHONDONTWRITEBYTECODE=1 \
@@ -44,7 +44,7 @@ WORKDIR $PYSETUP_PATH
 COPY poetry.lock pyproject.toml ./
 
 # install runtime deps - uses $POETRY_VIRTUALENVS_IN_PROJECT internally
-RUN poetry install --no-dev
+RUN poetry install --no-dev --no-root
 
 
 # `development` image is used during development / testing
@@ -58,13 +58,13 @@ COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
 
 
 # quicker install as runtime deps are already installed
-RUN poetry install
+RUN poetry install --no-root
 # netcat for testing
-RUN apt-get update && \
-    apt-get install netcat-traditional
+RUN apt update && \
+    apt install -y  netcat-traditional libgl1-mesa-glx libgomp1 libsm6 libxext6 ffmpeg libfontconfig1 libxrender1 libgl1-mesa-glx
 
 
-# WARNING! Don't forget to mount "./app:/app/app"
+# WARNING! Don't forget to mount "./mvp_sneakers_api:/mvp_sneakers_api/mvp_sneakers_api"
 WORKDIR /src
 RUN mkdir /src/logs
 

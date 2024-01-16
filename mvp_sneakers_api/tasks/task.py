@@ -1,6 +1,6 @@
 import time
 
-from app.services.celery import celery
+from mvp_sneakers_api.services.celery import celery
 
 
 @celery.task(name="create_task")

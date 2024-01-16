@@ -4,14 +4,14 @@ services:
       context: .
       dockerfile: ./Dockerfiles/app/Dockerfile
       target: development
-    command: [ "python"  , "-m", "app" ]
+    command: [ "python"  , "-m", "mvp_sneakers_api" ]
     environment:
       DEBUG: 'True'
       SETTINGS_LOG_FILE: 'True'
       SETTINGS_LOCAL_MODELS_PATH: models
     volumes:
-      - "./app:/src/app"
-      - "./research/models:/src/models"
+      - "./mvp_sneakers_api:/src/mvp_sneakers_api"
+      - "./data/models:/src/models"
     ports:
       - "8000:8000"
     env_file:
@@ -31,9 +31,9 @@ services:
       context: .
       dockerfile: Dockerfiles/app/Dockerfile
       target: development
-    command: celery -A app.services.celery worker --uid=nobody --gid=nogroup --loglevel=info
+    command: celery -A mvp_sneakers_api.services.celery worker --uid=nobody --gid=nogroup --loglevel=info
     volumes:
-      - ./app:/src/app
+      - ./mvp_sneakers_api:/src/mvp_sneakers_api
     environment:
       REDIS_HOST: redis
       RABBITMQ_HOST: rabbitmq
@@ -75,8 +75,22 @@ services:
       - '5672:5672'
       - '15672:15672'
 
+  nginx:
+    build: Configs/nginx
+    restart: always
+    depends_on:
+      web:
+        condition: service_healthy
+    volumes:
+      - nginx_logs:/var/log/nginx
+    ports:
+      - "5010:5010"
+
+
 volumes:
   redis_data:
     driver: local
   rabbitmq_data:
     driver: local
+  nginx_logs:
+    name: nginx_logs

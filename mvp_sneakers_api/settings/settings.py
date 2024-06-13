@@ -2,37 +2,17 @@ __all__ = "settings"
 
 from functools import lru_cache
 from pathlib import Path
-from typing import Dict
 
 from pydantic_settings import BaseSettings
 
 
-class Celery(BaseSettings):
+class EfficientSettings(BaseSettings):
     class Config:
-        env_prefix = "CELERY_"
+        env_prefix = "EFFICIENTNET_"
 
-    max_loop_interval: str = "60"
-
-
-class Model(BaseSettings):
-    image_size: int = 128
-    label: Dict = {
-        0: "adidas",
-        1: "Nike",
-        2: "Vans",
-        3: "Jordan",
-        4: "New Balance",
-    }
-
-
-class RabbitMQ(BaseSettings):
-    class Config:
-        env_prefix = "RABBITMQ_"
-
-    host: str = "localhost"
-    port: int = 5672
-    username: str = "parser"
-    password: str = "parser"
+    host: str = "triton"
+    port: int = 8000
+    path: str = "efficientnet/infer"
 
 
 class Redis(BaseSettings):
@@ -70,9 +50,7 @@ class Settings(BaseSettings):
     api: UvicornURL = UvicornURL()
     project: ProjectSettings = ProjectSettings()
     redis: Redis = Redis()
-    celery: Celery = Celery()
-    rabbit: RabbitMQ = RabbitMQ()
-    model: Model = Model()
+    efficientnet: EfficientSettings = EfficientSettings()
 
 
 @lru_cache

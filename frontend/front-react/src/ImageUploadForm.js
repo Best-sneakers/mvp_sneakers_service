@@ -15,7 +15,7 @@ const FileUpload = () => {
             const formData = new FormData();
             formData.append('file', selectedFile);
 
-            fetch('http://0.0.0.0:5010/api/v1/classificator/classificate', {
+            fetch('http://0.0.0.0:5010/api/v1/efficientnet/infer_batch', {
                 method: 'POST',
                 body: formData,
             })

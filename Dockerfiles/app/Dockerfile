@@ -61,21 +61,14 @@ COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
 RUN poetry install --no-root
 # netcat for testing
 RUN apt update && \
-    apt install -y  netcat-traditional libgl1-mesa-glx libgomp1 libsm6 libxext6 ffmpeg libfontconfig1 libxrender1 libgl1-mesa-glx
+    apt install -y  netcat-traditional
 
 
 # WARNING! Don't forget to mount "./mvp_sneakers_api:/mvp_sneakers_api/mvp_sneakers_api"
 WORKDIR /src
 RUN mkdir /src/logs
 
-RUN mkdir /src/logs/celery
-
-RUN chown -R nobody:nogroup /src/logs/celery  /src/logs/celery
-
-
 EXPOSE $PORT_APP
-
-
 
 FROM python-base as production
 ENV FASTAPI_ENV=production

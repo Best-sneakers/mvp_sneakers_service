@@ -20,7 +20,7 @@ LOGGING = {
         },
     },
     "handlers": {
-        "ml_fastapi_handler": {
+        "fast_api_inference_handler": {
             "level": "INFO",
             "formatter": "json",
             "class": "logging.FileHandler",
@@ -47,8 +47,8 @@ LOGGING = {
             "handlers": ["console"],
             "level": "INFO",
         },
-        "ml_fastapi_hw": {
-            "handlers": ["ml_fastapi_handler", "console"],
+        "fast_api_inference": {
+            "handlers": ["fast_api_inference_handler"],
             "level": "INFO",
             "propagate": False,
         },

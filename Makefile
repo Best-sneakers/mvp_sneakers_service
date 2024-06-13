@@ -39,17 +39,9 @@ run_front:
 	docker-compose -f frontend/docker-compose.yml up
 
 
-build_docker_metrics: check_and_rename_env
-	docker-compose -f docker-compose.metrics.yml build
-
 build_docker_dev:check_and_rename_env
 	docker compose -f docker-compose.dev.yml build
 
-run_metrics:
-	docker compose -f docker-compose.metrics.yml up
-
-metrics_stop:
-	docker compose -f docker-compose.metrics.yml down
 
 run_dev:
 	docker compose -f docker-compose.dev.yml up

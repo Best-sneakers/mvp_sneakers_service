@@ -1,17 +1,11 @@
 FROM node:16.15.1
 
-
 WORKDIR /usr/src/app
 
-COPY --chown=node:node package.json .
-RUN npm cache verify
-RUN npm install || true
+COPY --chown=node:node ./front-react/package.json .
 
-COPY --chown=node:node . .
-USER node
+RUN npm i
 
+COPY ./front-react ./
 
-RUN chmod 777  /usr/src/app/node_modules/.cache/.eslintcache
-
-
-CMD ["npm", "start"]
+ENTRYPOINT ["npm"]

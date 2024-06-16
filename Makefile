@@ -33,10 +33,10 @@ check_and_rename_env:
       fi
 
 build_front:
-	docker-compose -f frontend/docker-compose.yml build
+	docker compose -f frontend/docker-compose.dev.yml build
 
 run_front:
-	docker-compose -f frontend/docker-compose.yml up
+	docker compose -f frontend/docker-compose.dev.yml up
 
 
 build_docker_dev:check_and_rename_env

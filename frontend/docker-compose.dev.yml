@@ -2,11 +2,8 @@ services:
   sneakers_front:
     container_name: front_react
     build:
-      context: ./front-react
-      dockerfile: ../../Dockerfiles/React/Dockerfile
-    command: npm start
-    volumes:
-      - "./front-react:/usr/src/app"
+      dockerfile: ../Dockerfiles/React/Dockerfile
+    command: ["start"]
     ports:
       - 3000:3000
     stdin_open: true

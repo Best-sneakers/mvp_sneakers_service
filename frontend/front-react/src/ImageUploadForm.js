@@ -27,7 +27,7 @@ const FileUpload = () => {
                 })
                 .then(data => {
                     console.log('Response:', data);
-                    setResult(data);
+                    setResult(data.outputs[0].data[0]);
                 })
                 .catch(error => {
                     console.error('Error uploading file:', error);
@@ -57,8 +57,8 @@ const FileUpload = () => {
             {result !== null && (
                 <div>
                     <h3>Result:</h3>
-                    {Object.keys(result).length > 0 ? (
-                        <p>{JSON.stringify(result)}</p>
+                    {result ? (
+                        <p>{result}</p>
                     ) : (
                         <p>No data found in the result object</p>
                     )}

@@ -10,7 +10,7 @@ class EfficientSettings(BaseSettings):
     class Config:
         env_prefix = "EFFICIENTNET_"
 
-    host: str = "triton"
+    host: str = "triton_hf"
     port: int = 8000
     path: str = "efficientnet/infer"
 

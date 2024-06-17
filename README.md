@@ -1,5 +1,13 @@
 # Sneakers MVP service 
 
+### This is the main repo for sneakers  project
+
+# Other project repos : 
+
+### Triton inference server [triton](https://github.com/Best-sneakers/triton-inference-server)
+### Airflow service  [airflow](https://github.com/Best-sneakers/Airflow_sneakers)
+### EDA [eda](https://github.com/Best-sneakers/EDA)
+
 ## Application Launch
 
 ### Development
